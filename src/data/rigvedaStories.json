@@ -1,0 +1,301 @@
+{
+  "stories": [
+    {
+      "id": 1,
+      "mandala": 10,
+      "sukta": 129,
+      "title": "Nasadiya Sukta (Hymn of Creation)",
+      "sanskrit": "नासदासीन्नो सदासीत्तदानीं नासीद्रजो नो व्योमा परो यत्",
+      "transliteration": "nāsad āsīn no sad āsīt tadānīṃ nāsīd rajo no vyomā paro yat",
+      "translation": "Then even non-existence was not there, nor existence. There was no air then, nor the space beyond it.",
+      "context": "The Nasadiya Sukta is one of the most profound philosophical hymns of the Rigveda, exploring the mystery of creation. It questions the origin of the universe and acknowledges the limits of human knowledge. The hymn suggests that even the gods came after creation, and perhaps only the one who presides over it in highest heaven truly knows - or perhaps even they do not know.",
+      "themes": ["Creation", "Philosophy", "Cosmology", "Mystery of Existence"]
+    },
+    {
+      "id": 2,
+      "mandala": 10,
+      "sukta": 90,
+      "title": "Purusha Sukta (Hymn of the Cosmic Being)",
+      "sanskrit": "सहस्रशीर्षा पुरुषः सहस्राक्षः सहस्रपात्",
+      "transliteration": "sahasra-śīrṣā puruṣaḥ sahasrākṣaḥ sahasra-pāt",
+      "translation": "The Purusha has a thousand heads, a thousand eyes, and a thousand feet.",
+      "context": "The Purusha Sukta describes the cosmic being (Purusha) whose sacrifice by the gods created all life and established the social order. This hymn is fundamental to understanding Vedic cosmology and has profoundly influenced Hindu philosophy. It presents the universe as an organic unity, with all parts interconnected.",
+      "themes": ["Cosmology", "Sacrifice", "Unity", "Social Order"]
+    },
+    {
+      "id": 3,
+      "mandala": 1,
+      "sukta": 1,
+      "title": "Invocation to Agni",
+      "sanskrit": "अग्निमीळे पुरोहितं यज्ञस्य देवमृत्विजम्",
+      "transliteration": "agnim īḷe purohitaṃ yajñasya devam ṛtvijam",
+      "translation": "I praise Agni, the chosen priest, god, minister of sacrifice, the invoker, lavisher of wealth.",
+      "context": "This is the very first hymn of the Rigveda, establishing Agni's supreme importance as the divine priest who carries offerings to the gods. Agni is the sacred fire, present in every ritual, connecting earth and heaven. This hymn sets the tone for the entire Rigveda, emphasizing the centrality of sacrifice and divine communication.",
+      "themes": ["Fire", "Ritual", "Divine Communication", "Beginning"]
+    },
+    {
+      "id": 4,
+      "mandala": 2,
+      "sukta": 12,
+      "title": "Indra's Greatness",
+      "sanskrit": "य इमे रोदसी उभे अहनद्वृत्रमिन्द्रः",
+      "transliteration": "ya ime rodasī ubhe ahanad vṛtram indraḥ",
+      "translation": "He who struck down Vritra and released the waters, he is Indra, the greatest of all.",
+      "context": "This hymn celebrates Indra's heroic victory over Vritra, the serpent who held back the cosmic waters. This battle represents the triumph of order over chaos, light over darkness. Indra is portrayed as the supreme warrior god who maintains cosmic balance and brings life-giving rain.",
+      "themes": ["Heroism", "Victory", "Order", "Rain"]
+    },
+    {
+      "id": 5,
+      "mandala": 1,
+      "sukta": 164,
+      "title": "The Riddle Hymn",
+      "sanskrit": "कस्तद्वेद य इह प्र वोचत्कस्य यस्याधि नो निष्कृतं",
+      "transliteration": "kas tad veda ya iha pra vocat kasya yasyādhi no niṣkṛtaṃ",
+      "translation": "Who truly knows and who can declare it, whence was born and whence comes this creation?",
+      "context": "This mysterious hymn is filled with riddles and profound questions about existence, knowledge, and reality. It explores the nature of truth through paradox and metaphor, characteristic of deep Vedic philosophical inquiry. The hymn challenges the listener to think beyond conventional understanding.",
+      "themes": ["Mystery", "Knowledge", "Philosophy", "Paradox"]
+    },
+    {
+      "id": 6,
+      "mandala": 7,
+      "sukta": 89,
+      "title": "Prayer to Varuna",
+      "sanskrit": "यत्ते विश्व प्रचेतस इन्द्रियं विप्रियो वयः",
+      "transliteration": "yat te viśva pracetas indriyaṃ vipryo vayaḥ",
+      "translation": "O all-knowing Varuna, whatever sins we have committed, forgive us.",
+      "context": "Varuna is the guardian of cosmic law (rita) and moral order. This heartfelt prayer seeks forgiveness for transgressions, both known and unknown. It reveals a sophisticated understanding of ethics and conscience in Vedic times, showing that righteousness was paramount.",
+      "themes": ["Ethics", "Forgiveness", "Divine Law", "Conscience"]
+    },
+    {
+      "id": 7,
+      "mandala": 9,
+      "sukta": 113,
+      "title": "Soma Pavamana",
+      "sanskrit": "स पवमानो अर्षति सोमो हरिभिर्युज्यते",
+      "transliteration": "sa pavamāno arṣati somo haribhir yujyate",
+      "translation": "The purified Soma flows forth, yoked with golden steeds.",
+      "context": "The Soma hymns celebrate the sacred plant whose juice was central to Vedic ritual. Soma is both a physical substance and a deity, representing divine inspiration, immortality, and spiritual ecstasy. The preparation and offering of Soma was the most elaborate Vedic ritual.",
+      "themes": ["Ritual", "Purification", "Divine Inspiration", "Immortality"]
+    },
+    {
+      "id": 8,
+      "mandala": 1,
+      "sukta": 113,
+      "title": "Hymn to Ushas (Dawn)",
+      "sanskrit": "उषा उच्छन्ती युवतिः पुरस्ताद् विश्वस्य जगतो नेत्री",
+      "transliteration": "uṣā ucchantī yuvatih purastād viśvasya jagato netrī",
+      "translation": "Dawn shines forth like a young maiden from the east, leader of all the world.",
+      "context": "Ushas, the goddess of dawn, is praised in some of the most beautiful hymns of the Rigveda. She represents hope, renewal, and the victory of light over darkness. Her daily appearance symbolizes cosmic order and the eternal cycle of time.",
+      "themes": ["Dawn", "Renewal", "Beauty", "Time"]
+    },
+    {
+      "id": 9,
+      "mandala": 10,
+      "sukta": 125,
+      "title": "Devi Sukta (Hymn of the Goddess)",
+      "sanskrit": "अहं रुद्रेभिर्वसुभिश्चराम्यहमादित्यैरुत विश्वदेवैः",
+      "transliteration": "ahaṃ rudrebhir vasubhiś carāmy aham ādityair uta viśvadevaiḥ",
+      "translation": "I move with the Rudras, the Vasus, I move with the Adityas and all the gods.",
+      "context": "This remarkable hymn is spoken by Vak, the goddess of speech and divine wisdom. She proclaims her supreme power and her presence throughout the cosmos. It is one of the earliest expressions of the divine feminine in world literature, later influencing concepts of Shakti.",
+      "themes": ["Divine Feminine", "Speech", "Power", "Wisdom"]
+    },
+    {
+      "id": 10,
+      "mandala": 1,
+      "sukta": 89,
+      "title": "Hymn to the Vishvadevas (All Gods)",
+      "sanskrit": "विश्वे देवासो अद्रुहः सर्वे नो अवन्तु",
+      "transliteration": "viśve devāso adruhaḥ sarve no avantu",
+      "translation": "May all the gods, who are without deceit, protect us.",
+      "context": "The Vishvadevas represent the collective body of deities, emphasizing the Vedic understanding that divine power manifests in many forms. This hymn seeks universal protection and blessing, acknowledging that truth and righteousness come from the divine collective.",
+      "themes": ["Universal Protection", "Divine Collective", "Truth", "Unity"]
+    },
+    {
+      "id": 11,
+      "mandala": 6,
+      "sukta": 75,
+      "title": "Weapons of War",
+      "sanskrit": "आयुधान्यग्ने जनय महते क्षत्रायोजसे",
+      "transliteration": "āyudhāny agne janaya mahate kṣatrāyojase",
+      "translation": "O Agni, generate weapons for the great warrior's might and strength.",
+      "context": "This martial hymn reflects the warrior culture of Vedic society. It invokes divine blessing on weapons and warriors, seeking victory in righteous battle. The hymn acknowledges that strength must be paired with righteousness and divine sanction.",
+      "themes": ["Warfare", "Strength", "Protection", "Righteousness"]
+    },
+    {
+      "id": 12,
+      "mandala": 7,
+      "sukta": 49,
+      "title": "Waters of Life",
+      "sanskrit": "आपो हि ष्ठा मयोभुवः ता न ऊर्जे दधातन",
+      "transliteration": "āpo hi ṣṭhā mayobhuvaḥ tā na ūrje dadhātana",
+      "translation": "Waters, you are the ones who bring us life force. Grant us vigour.",
+      "context": "Water is revered as the source of all life in Vedic thought. This hymn addresses the sacred waters with reverence, seeking vitality and healing. Water connects all life and carries divine blessings, purifying both body and spirit.",
+      "themes": ["Water", "Life Force", "Healing", "Purification"]
+    },
+    {
+      "id": 13,
+      "mandala": 1,
+      "sukta": 154,
+      "title": "Vishnu's Three Steps",
+      "sanskrit": "विष्णोर्नु कं वीर्याणि प्र वोचं यः पार्थिवानि विममे रजांसि",
+      "transliteration": "viṣṇor nu kaṃ vīryāṇi pra vocaṃ yaḥ pārthivāni vimame rajāṃsi",
+      "translation": "I will declare the mighty deeds of Vishnu, who measured out the earthly regions.",
+      "context": "Though Vishnu is not as prominent in the Rigveda as in later texts, this hymn describes his famous three steps that encompassed earth, atmosphere, and heaven. It establishes Vishnu as the preserver who maintains cosmic order through his all-encompassing presence.",
+      "themes": ["Preservation", "Cosmic Order", "Space", "Divine Presence"]
+    },
+    {
+      "id": 14,
+      "mandala": 3,
+      "sukta": 62,
+      "title": "Gayatri Mantra",
+      "sanskrit": "तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात्",
+      "transliteration": "tat savitur vareṇyaṃ bhargo devasya dhīmahi dhiyo yo naḥ pracodayāt",
+      "translation": "We meditate on the glorious light of the divine Savitṛ. May he illuminate our minds.",
+      "context": "The Gayatri is perhaps the most sacred and widely recited mantra in Hinduism. Addressed to Savitṛ, the solar deity, it is a prayer for spiritual illumination and wisdom. This mantra has been chanted daily by millions for thousands of years.",
+      "themes": ["Solar Deity", "Enlightenment", "Wisdom", "Sacred Mantra"]
+    },
+    {
+      "id": 15,
+      "mandala": 10,
+      "sukta": 85,
+      "title": "Wedding Hymn",
+      "sanskrit": "सोमः प्रथमो विविदे गन्धर्वो विविद उत्तरः अग्निः त्वा तृतीयो विविदे",
+      "transliteration": "somaḥ prathamo vivide gandharvo vivida uttaraḥ agniḥ tvā tṛtīyo vivide",
+      "translation": "Soma first possessed you, the Gandharva possessed you next, Agni was your third husband.",
+      "context": "This beautiful hymn is recited during Vedic wedding ceremonies. It traces the symbolic journey of the bride from celestial realms to her earthly union. The hymn sanctifies marriage as a sacred bond blessed by the gods.",
+      "themes": ["Marriage", "Sacred Union", "Ceremony", "Blessing"]
+    },
+    {
+      "id": 16,
+      "mandala": 10,
+      "sukta": 95,
+      "title": "Urvashi and Pururavas",
+      "sanskrit": "त्वामीशानं जगतस्तस्थुषश्च त्वामीशानं द्रविणस्य",
+      "transliteration": "tvām īśānaṃ jagatas tasthuṣaś ca tvām īśānaṃ draviṇasya",
+      "translation": "You are the lord of all that moves and stands still, you are the lord of wealth.",
+      "context": "This dramatic hymn tells the love story between Pururavas, a mortal king, and Urvashi, a celestial nymph. It explores themes of love, loss, and the barrier between divine and human realms. The dialogue format makes it unique in Vedic literature.",
+      "themes": ["Love", "Mortality", "Divine-Human Relations", "Tragedy"]
+    },
+    {
+      "id": 17,
+      "mandala": 8,
+      "sukta": 48,
+      "title": "Praise of Soma",
+      "sanskrit": "इमं स्तोमं अर्हते जातवेदसे रथमिव सं महेमा मनीषया",
+      "transliteration": "imaṃ stomaṃ arhate jātavedase ratham iva saṃ mahemā manīṣayā",
+      "translation": "With our minds we fashion this hymn for the worthy Jatavedas (Agni), as a chariot is built.",
+      "context": "This hymn draws a beautiful parallel between crafting a hymn and building a chariot, both requiring skill and devotion. It reveals the Vedic understanding of poetry as a sacred craft, where words have power to reach the divine.",
+      "themes": ["Poetry", "Craftsmanship", "Sacred Speech", "Devotion"]
+    },
+    {
+      "id": 18,
+      "mandala": 5,
+      "sukta": 85,
+      "title": "Hymn to Varuna",
+      "sanskrit": "प्रति वां मित्रावरुणाव्रतानि विश्वा धीरा इन्द्रियाणि",
+      "transliteration": "prati vāṃ mitrāvaruṇāv ratāni viśvā dhīrā indriyāṇi",
+      "translation": "O Mitra and Varuna, your laws and mighty powers are manifest in all.",
+      "context": "Mitra and Varuna together represent contract and cosmic law. They ensure that oaths are kept and order is maintained. This hymn praises their watchfulness over human affairs and their role in upholding righteousness.",
+      "themes": ["Law", "Contract", "Cosmic Order", "Righteousness"]
+    },
+    {
+      "id": 19,
+      "mandala": 1,
+      "sukta": 32,
+      "title": "Indra Slays Vritra",
+      "sanskrit": "इन्द्रस्य नु वीर्याणि प्र वोचं यानि चकार प्रथमानि वज्री",
+      "transliteration": "indrasya nu vīryāṇi pra vocaṃ yāni cakāra prathamāni vajrī",
+      "translation": "Now I declare the heroic deeds of Indra, what the wielder of the vajra accomplished first.",
+      "context": "This epic hymn narrates Indra's greatest feat - slaying Vritra and releasing the waters. It is a creation myth where Indra's victory establishes the order of the cosmos. The battle represents the eternal struggle between chaos and order.",
+      "themes": ["Heroism", "Creation", "Cosmic Battle", "Order"]
+    },
+    {
+      "id": 20,
+      "mandala": 10,
+      "sukta": 121,
+      "title": "The Golden Embryo",
+      "sanskrit": "हिरण्यगर्भः समवर्तताग्रे भूतस्य जातः पतिरेक आसीत्",
+      "transliteration": "hiraṇyagarbhaḥ samavartatāgre bhūtasya jātaḥ patir eka āsīt",
+      "translation": "In the beginning arose the Golden Embryo; he was the one lord of all that came into being.",
+      "context": "This creation hymn presents the universe as arising from a golden womb or embryo. It represents an early attempt to understand the origin of existence through a single creative principle, prefiguring later philosophical concepts of Brahman.",
+      "themes": ["Creation", "Origin", "Unity", "Philosophy"]
+    },
+    {
+      "id": 21,
+      "mandala": 1,
+      "sukta": 35,
+      "title": "Hymn to Savitṛ",
+      "sanskrit": "उदुत्यं जातवेदसं देवं वहन्ति केतवः दृशे विश्वाय सूर्यम्",
+      "transliteration": "ud utyaṃ jātavedasaṃ devaṃ vahanti ketavaḥ dṛśe viśvāya sūryam",
+      "translation": "The bright ones carry upward the god who knows all beings, Surya, for all to see.",
+      "context": "Savitṛ, the stimulator and vivifier, represents the sun's life-giving power. This hymn celebrates the daily miracle of sunrise and the divine energy that sustains all life. The sun is both a physical and spiritual source of illumination.",
+      "themes": ["Sun", "Life Force", "Daily Renewal", "Divine Energy"]
+    },
+    {
+      "id": 22,
+      "mandala": 10,
+      "sukta": 191,
+      "title": "Unity and Harmony",
+      "sanskrit": "समानी व आकूतिः समाना हृदयानि वः समानमस्तु वो मनो यथा वः सुसहासति",
+      "transliteration": "samānī va ākūtiḥ samānā hṛdayāni vaḥ samānam astu vo mano yathā vaḥ susahāsati",
+      "translation": "May your intentions be united, may your hearts be united, may your minds be united, so that you may dwell together in happiness.",
+      "context": "This hymn is a prayer for social harmony and unity. It expresses the Vedic ideal of a community working together with common purpose. The emphasis on mental and spiritual unity shows the depth of Vedic social philosophy.",
+      "themes": ["Unity", "Harmony", "Community", "Peace"]
+    },
+    {
+      "id": 23,
+      "mandala": 2,
+      "sukta": 33,
+      "title": "Rudra's Grace",
+      "sanskrit": "मा नस्तोके तनये मा न आयुषि मा नो गोषु मा नो अश्वेषु रीरिषः",
+      "transliteration": "mā nas toke tanaye mā na āyuṣi mā no goṣu mā no aśveṣu rīriṣaḥ",
+      "translation": "Harm not our children or descendants, nor our life, nor our cattle, nor our horses.",
+      "context": "Rudra, the fierce god, is both terrifying and merciful. This hymn seeks to appease his anger and invoke his protective grace. It shows the Vedic understanding that divine power must be approached with both reverence and caution.",
+      "themes": ["Protection", "Divine Wrath", "Mercy", "Fear and Reverence"]
+    },
+    {
+      "id": 24,
+      "mandala": 7,
+      "sukta": 103,
+      "title": "The Frogs' Song",
+      "sanskrit": "संवत्सरं शयाना ब्राह्मणा व्रतचारिणः वाचं पजन्य",
+      "transliteration": "saṃvatsaraṃ śayānā brāhmaṇā vratacāriṇaḥ vācaṃ pajanaya",
+      "translation": "Like priests who have kept their vows for a year, the frogs raise their voices when the rain comes.",
+      "context": "This charming hymn compares the croaking of frogs during monsoon to the chanting of priests. It shows the Vedic ability to find divine patterns in nature and celebrates the joy of the rainy season bringing life back to the earth.",
+      "themes": ["Nature", "Rain", "Joy", "Observation"]
+    },
+    {
+      "id": 25,
+      "mandala": 10,
+      "sukta": 34,
+      "title": "The Gambler's Lament",
+      "sanskrit": "न मां वृक्षा सुसहास्य जीवति न मां परा जरसा दुर्मदो दद",
+      "transliteration": "na māṃ vṛkṣā susahāsya jīvati na māṃ parā jarasā durmado dada",
+      "translation": "The trees do not befriend me as they once did, no one respects me now in my misery.",
+      "context": "One of the most human and touching hymns in the Rigveda, this lament of a gambling addict shows the destructive power of addiction. It demonstrates that Vedic sages understood human weakness and suffering with profound empathy.",
+      "themes": ["Addiction", "Loss", "Human Weakness", "Suffering"]
+    },
+    {
+      "id": 26,
+      "mandala": 8,
+      "sukta": 100,
+      "title": "The Battle Prayer",
+      "sanskrit": "इन्द्रं वो विश्वतस्परि हवामहे जनेभ्यः यः पारावत उभयावत",
+      "transliteration": "indraṃ vo viśvatas pari havāmahe janebhyaḥ yaḥ pārāvata ubhayāvata",
+      "translation": "We call upon Indra from all sides for our people, he who protects both near and far.",
+      "context": "This martial hymn invokes Indra's protection before battle. It reflects the reality of conflict in Vedic times while emphasizing that victory comes through divine favor, not mere force. The prayer seeks protection for the entire community.",
+      "themes": ["Battle", "Protection", "Victory", "Community"]
+    },
+    {
+      "id": 27,
+      "mandala": 1,
+      "sukta": 191,
+      "title": "Prayer for Harmony",
+      "sanskrit": "संगच्छध्वं संवदध्वं सं वो मनांसि जानताम्",
+      "transliteration": "saṃgacchadhvaṃ saṃvadadhvaṃ saṃ vo manāṃsi jānatām",
+      "translation": "Move together, speak together, let your minds be of one accord.",
+      "context": "This hymn is a blessing for unity and cooperation. It envisions an ideal society where people work together harmoniously, with aligned thoughts and purposes. The emphasis on mental unity shows that Vedic culture valued inner harmony as much as external cooperation.",
+      "themes": ["Unity", "Cooperation", "Harmony", "Social Ideal"]
+    }
+  ]
+}
