@@ -17,12 +17,12 @@ interface TimeDetailsProps {
 /**
  * Format date in DD/MM/YYYY format
  */
-function formatDate(date: Date): string {
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
-}
+// function formatDate(date: Date): string {
+//   const day = String(date.getDate()).padStart(2, '0');
+//   const month = String(date.getMonth() + 1).padStart(2, '0');
+//   const year = date.getFullYear();
+//   return `${day}/${month}/${year}`;
+// }
 
 /**
  * Format date and time in DD/MM/YYYY HH:MM:SS format
