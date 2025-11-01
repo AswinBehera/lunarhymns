@@ -13,6 +13,38 @@
 export type Paksha = 'Shukla' | 'Krishna';
 
 /**
+ * Muhurta information structure
+ */
+export interface MuhurtaData {
+  /** Muhurta number (1-30) */
+  number: number;
+  /** Name in English */
+  name: string;
+  /** Name in Sanskrit (Devanagari) */
+  nameSanskrit: string;
+  /** Progress through current muhurta (0-100%) */
+  progress: number;
+  /** Estimated minutes until next muhurta */
+  timeRemaining: number;
+}
+
+/**
+ * Prana information structure
+ */
+export interface PranaData {
+  /** Current prana number (0-21599) */
+  number: number;
+  /** Angle for clock hand display (0-360 degrees) */
+  angle: number;
+  /** Progress to next prana (0-100%) */
+  progress: number;
+  /** Current breath phase */
+  breathPhase: 'inhale' | 'exhale';
+  /** Progress within current breath phase (0-100%) */
+  breathPhaseProgress: number;
+}
+
+/**
  * Complete Vedic Time representation
  */
 export interface VedicTime {
@@ -41,6 +73,12 @@ export interface VedicTime {
   masa: number;
   /** Name of the current masa */
   masaName: string;
+
+  /** Current muhurta (time division) */
+  muhurta: MuhurtaData;
+
+  /** Current prana (breath cycle) */
+  prana: PranaData;
 
   /** Moon phase as a decimal (0 = New Moon, 0.5 = Full Moon, 1 = New Moon) */
   moonPhase: number;

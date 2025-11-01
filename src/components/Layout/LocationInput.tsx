@@ -12,6 +12,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { LocationState } from '../../hooks/useLocation';
+import { searchLocations, type LocationData } from '../../data/locations';
 
 interface LocationInputProps {
   locationState: LocationState;
@@ -28,6 +29,10 @@ export function LocationInput({ locationState }: LocationInputProps) {
   const [tempLat, setTempLat] = useState(location.latitude.toString());
   const [tempLon, setTempLon] = useState(location.longitude.toString());
   const [inputError, setInputError] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredLocations, setFilteredLocations] = useState<LocationData[]>(
+    searchLocations('')
+  );
 
   const goldColor = '#D4AF37';
   const lightGoldColor = '#F4E5B8';
@@ -68,6 +73,24 @@ export function LocationInput({ locationState }: LocationInputProps) {
   const handleRequestLocation = () => {
     requestLocation();
     setIsExpanded(false);
+  };
+
+  /**
+   * Handle search input change
+   */
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
+    const results = searchLocations(query);
+    setFilteredLocations(results);
+  };
+
+  /**
+   * Handle location selection from search results
+   */
+  const handleSelectLocation = (loc: LocationData) => {
+    setManualLocation(loc.latitude, loc.longitude, `${loc.name}, ${loc.country}`);
+    setIsExpanded(false);
+    setSearchQuery('');
   };
 
   return (
@@ -300,36 +323,64 @@ export function LocationInput({ locationState }: LocationInputProps) {
                   </motion.button>
                 </form>
 
-                {/* Popular Locations Quick Select */}
+                {/* Location Search */}
                 <div className="pt-2 border-t border-yellow-900/30">
                   <div className="text-xs uppercase tracking-wider mb-2" style={{ color: goldColor }}>
-                    Quick Select
+                    Search Location
                   </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    {[
-                      { name: 'Varanasi', lat: 25.3176, lon: 82.9739 },
-                      { name: 'New Delhi', lat: 28.6139, lon: 77.2090 },
-                      { name: 'Mumbai', lat: 19.0760, lon: 72.8777 },
-                      { name: 'Bengaluru', lat: 12.9716, lon: 77.5946 },
-                    ].map((loc) => (
+
+                  {/* Search Input */}
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => handleSearchChange(e.target.value)}
+                    placeholder="Search city or country..."
+                    className="w-full px-3 py-2 rounded-md text-sm bg-slate-800 border focus:outline-none focus:ring-1 transition-all mb-2"
+                    style={{
+                      borderColor: `${goldColor}40`,
+                      color: lightGoldColor,
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = goldColor;
+                      e.target.style.boxShadow = `0 0 0 1px ${goldColor}`;
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = `${goldColor}40`;
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  />
+
+                  {/* Search Results */}
+                  <div className="max-h-48 overflow-y-auto space-y-1">
+                    {filteredLocations.slice(0, 10).map((loc) => (
                       <motion.button
-                        key={loc.name}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => {
-                          setManualLocation(loc.lat, loc.lon, loc.name);
-                          setIsExpanded(false);
-                        }}
-                        className="px-2 py-1 rounded text-xs transition-all"
+                        key={`${loc.name}-${loc.country}`}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => handleSelectLocation(loc)}
+                        className="w-full text-left px-3 py-2 rounded text-xs transition-all"
                         style={{
                           backgroundColor: `${goldColor}10`,
                           border: `1px solid ${goldColor}30`,
                           color: lightGoldColor,
                         }}
                       >
-                        {loc.name}
+                        <div className="font-medium">{loc.name}, {loc.country}</div>
+                        <div className="text-[10px] opacity-60 mt-0.5">
+                          {loc.latitude.toFixed(4)}°, {loc.longitude.toFixed(4)}°
+                        </div>
                       </motion.button>
                     ))}
+                    {filteredLocations.length === 0 && (
+                      <div className="text-xs text-center py-4" style={{ color: goldColor, opacity: 0.5 }}>
+                        No locations found
+                      </div>
+                    )}
+                    {filteredLocations.length > 10 && (
+                      <div className="text-xs text-center py-2" style={{ color: goldColor, opacity: 0.6 }}>
+                        Showing 10 of {filteredLocations.length} results
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

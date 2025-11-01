@@ -12,7 +12,12 @@ import type { VedicTime } from '../../lib/vedic-calendar';
 import { ClockContainer } from './ClockContainer';
 import { OrbitalRings } from './OrbitalRings';
 import { MoonIndicator } from './MoonIndicator';
-import { CenterDisplay } from './CenterDisplay';
+import { MuhurtaRing } from './MuhurtaRing';
+import { PranaHand } from './PranaHand';
+import { BreathingAnimation } from './BreathingAnimation';
+import { BreathingButton } from './BreathingButton';
+import { BreathingGuide } from './BreathingGuide';
+import { BreathingModal } from '../Meditation/BreathingModal';
 
 interface VedicClockProps {
   /** Observer's latitude in degrees */
@@ -47,6 +52,8 @@ export function VedicClock({
   const [vedicTime, setVedicTime] = useState<VedicTime | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isBreathingGuideActive, setIsBreathingGuideActive] = useState(false);
+  const [isBreathingModalOpen, setIsBreathingModalOpen] = useState(false);
 
   // Calculate Vedic time
   const updateVedicTime = () => {
@@ -68,11 +75,12 @@ export function VedicClock({
     updateVedicTime();
 
     // Set up interval for periodic updates
-    const intervalId = setInterval(updateVedicTime, updateInterval);
+    // Update every 4 seconds (1 prana cycle) - good balance between accuracy and performance
+    const intervalId = setInterval(updateVedicTime, 4000);
 
     // Cleanup on unmount
     return () => clearInterval(intervalId);
-  }, [latitude, longitude, updateInterval]);
+  }, [latitude, longitude]);
 
   // Loading state
   if (isLoading) {
@@ -103,7 +111,7 @@ export function VedicClock({
   return (
     <ClockContainer>
       {/* Main clock container with layered components */}
-      <div className="relative w-full max-w-4xl aspect-square">
+      <div className="relative w-full max-w-5xl aspect-square mx-auto">
         {/* Layer 1: Orbital Rings (background) */}
         <div className="absolute inset-0 flex items-center justify-center">
           <OrbitalRings
@@ -112,7 +120,12 @@ export function VedicClock({
           />
         </div>
 
-        {/* Layer 2: Moon Indicator (on the rings) */}
+        {/* Layer 2: Muhurta Ring (middle layer) */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <MuhurtaRing muhurta={vedicTime.muhurta} />
+        </div>
+
+        {/* Layer 3: Moon Indicator (on the rings) */}
         <div className="absolute inset-0 flex items-center justify-center">
           <MoonIndicator
             moonPhase={vedicTime.moonPhase}
@@ -121,28 +134,38 @@ export function VedicClock({
           />
         </div>
 
-        {/* Layer 3: Center Display (foreground) */}
-        <CenterDisplay vedicTime={vedicTime} />
-      </div>
+        {/* Layer 4: Breathing Animation (center effect) */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <BreathingAnimation prana={vedicTime.prana} />
+        </div>
 
-      {/* Additional info footer */}
-      <div className="absolute bottom-8 left-0 right-0 text-center">
-        <div className="text-sm opacity-50 text-yellow-600">
-          {locationName && (
-            <>
-              <div className="font-medium">{locationName}</div>
-              <div className="text-xs mt-1">
-                {latitude.toFixed(4)}°N, {longitude.toFixed(4)}°E
-              </div>
-            </>
-          )}
-          {!locationName && (
-            <div>
-              Location: {latitude.toFixed(4)}°N, {longitude.toFixed(4)}°E
-            </div>
-          )}
+        {/* Layer 5: Prana Hand (clock hand) */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <PranaHand prana={vedicTime.prana} />
+        </div>
+
+        {/* Layer 6: Central Breathing Button */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <BreathingButton
+            prana={vedicTime.prana}
+            onClick={() => setIsBreathingModalOpen(true)}
+          />
         </div>
       </div>
+
+      {/* Breathing guide overlay (legacy - can be removed if not needed) */}
+      <BreathingGuide
+        prana={vedicTime.prana}
+        isActive={isBreathingGuideActive}
+        onToggle={() => setIsBreathingGuideActive(!isBreathingGuideActive)}
+      />
+
+      {/* Breathing meditation modal */}
+      <BreathingModal
+        isOpen={isBreathingModalOpen}
+        pranaData={vedicTime.prana}
+        onClose={() => setIsBreathingModalOpen(false)}
+      />
     </ClockContainer>
   );
 }

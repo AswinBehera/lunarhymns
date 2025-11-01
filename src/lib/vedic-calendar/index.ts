@@ -29,6 +29,8 @@ import { getMasaName } from './vedicTime';
 import { getCelestialData } from './astronomicalCalculations';
 import { calculateTithi } from './tithiCalculator';
 import { calculateNakshatra } from './nakshatraCalculator';
+import { calculateMuhurta } from './muhurtaCalculator';
+import { calculatePrana, getBreathPhase, getBreathPhaseProgress } from './pranaCalculator';
 
 /**
  * Options for Vedic time calculation
@@ -120,6 +122,19 @@ export function calculateVedicTime(
   const masa = calculateMasa(celestialData.sunLongitude);
   const masaName = getMasaName(masa);
 
+  // Calculate muhurta (time division)
+  const muhurtaData = calculateMuhurta(date, latitude, longitude);
+
+  // Calculate prana (breath cycle)
+  const pranaInfo = calculatePrana(date, latitude, longitude);
+  const pranaData = {
+    number: pranaInfo.number,
+    angle: pranaInfo.angle,
+    progress: pranaInfo.progress,
+    breathPhase: getBreathPhase(pranaInfo.progress),
+    breathPhaseProgress: getBreathPhaseProgress(pranaInfo.progress),
+  };
+
   // Assemble complete VedicTime object
   const vedicTime: VedicTime = {
     // Tithi information
@@ -140,6 +155,12 @@ export function calculateVedicTime(
     // Masa (lunar month)
     masa,
     masaName,
+
+    // Muhurta (time division)
+    muhurta: muhurtaData,
+
+    // Prana (breath cycle)
+    prana: pranaData,
 
     // Astronomical data
     moonPhase: celestialData.moonPhase,
@@ -175,7 +196,7 @@ export function calculateVedicTimeWithOptions(options: VedicTimeOptions): VedicT
 }
 
 // Re-export types and utilities for convenience
-export type { VedicTime, Paksha } from './vedicTime';
+export type { VedicTime, Paksha, MuhurtaData, PranaData } from './vedicTime';
 export type { TithiResult } from './tithiCalculator';
 export type { NakshatraResult } from './nakshatraCalculator';
 
@@ -213,3 +234,25 @@ export {
   getMoonRashi,
   NAKSHATRA_DETAILS,
 } from './nakshatraCalculator';
+
+export {
+  calculateMuhurta,
+  getMuhurtaName,
+  getSunrise,
+  MUHURTA_NAMES,
+  MINUTES_PER_MUHURTA,
+  MUHURTAS_PER_DAY,
+} from './muhurtaCalculator';
+
+export type { MuhurtaInfo } from './muhurtaCalculator';
+
+export {
+  calculatePrana,
+  getBreathPhase,
+  getBreathPhaseProgress,
+  getPranasToNextMuhurta,
+  pranaToTimeString,
+  PRANA_CONSTANTS,
+} from './pranaCalculator';
+
+export type { PranaInfo } from './pranaCalculator';

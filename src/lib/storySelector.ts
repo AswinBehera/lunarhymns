@@ -1,12 +1,15 @@
 /**
  * Story Selector Module
  *
- * Selects the daily Rigvedic story based on the current nakshatra.
- * Each of the 27 nakshatras corresponds to one of the 27 stories,
- * ensuring the same story appears all day for the same nakshatra.
+ * Selects the daily Rigvedic story based on cosmic context:
+ * - Special occasions (Purnima, Amavasya, Ekadashi)
+ * - Paksha (waxing/waning moon phase)
+ * - Tithi (lunar day) for thematic relevance
+ * - Nakshatra as fallback for daily variation
  */
 
 import storiesData from '../data/rigvedaStories.json';
+import type { Paksha } from './vedic-calendar';
 
 /**
  * Rigvedic story structure
@@ -24,35 +27,108 @@ export interface RigvedaStory {
 }
 
 /**
- * Get today's story based on the current nakshatra
+ * Contextual story selection options
+ */
+export interface StorySelectionContext {
+  /** Current nakshatra (1-27) */
+  nakshatraNumber: number;
+  /** Current tithi (1-30) */
+  tithi: number;
+  /** Current paksha (waxing/waning moon) */
+  paksha: Paksha;
+}
+
+/**
+ * Get story ID based on special occasions and cosmic context
  *
- * The story selection is deterministic based on nakshatra number:
- * - Nakshatra 1 (Ashwini) → Story 1 (Nasadiya Sukta)
- * - Nakshatra 2 (Bharani) → Story 2 (Purusha Sukta)
- * - ... and so on
+ * Priority order:
+ * 1. Special occasions (Purnima, Amavasya, Ekadashi)
+ * 2. Paksha-based themes (waxing/waning)
+ * 3. Tithi-based themes
+ * 4. Nakshatra as fallback
  *
- * This ensures:
- * 1. The same story appears all day (nakshatra doesn't change frequently)
- * 2. Stories cycle through the 27 nakshatras
- * 3. Users experience different stories as nakshatras progress
+ * @param context - Cosmic context for selection
+ * @returns Story ID (1-27)
+ */
+function getContextualStoryId(context: StorySelectionContext): number {
+  const { tithi, paksha, nakshatraNumber } = context;
+
+  // Special Occasions
+  // Purnima (Full Moon - 15th tithi of Shukla Paksha)
+  if (tithi === 15 && paksha === 'shukla') {
+    // Stories about illumination, unity, completion
+    const purnimStories = [14, 20, 22]; // Gayatri, Golden Embryo, Unity
+    return purnimStories[Math.floor(Date.now() / (1000 * 60 * 60 * 24)) % purnimStories.length];
+  }
+
+  // Amavasya (New Moon - 15th/30th tithi of Krishna Paksha)
+  if ((tithi === 15 || tithi === 30) && paksha === 'krishna') {
+    // Stories about creation, mystery, new beginnings
+    const amavasyaStories = [1, 5, 20]; // Nasadiya, Riddle Hymn, Golden Embryo
+    return amavasyaStories[Math.floor(Date.now() / (1000 * 60 * 60 * 24)) % amavasyaStories.length];
+  }
+
+  // Ekadashi (11th tithi - spiritually auspicious)
+  if (tithi === 11) {
+    // Stories about devotion, purification, spiritual practice
+    const ekadasiStories = [6, 7, 14]; // Prayer to Varuna, Soma Pavamana, Gayatri
+    return ekadasiStories[paksha === 'shukla' ? 2 : 0]; // Gayatri for Shukla, Varuna for Krishna
+  }
+
+  // Paksha-based selection
+  if (paksha === 'shukla') {
+    // Waxing moon: growth, light, victory, beginnings
+    const shuklaThemes = [3, 4, 8, 13, 19, 21]; // Agni, Indra's Greatness, Dawn, Vishnu, Indra Slays Vritra, Savitṛ
+    // Use tithi to vary within waxing period
+    return shuklaThemes[tithi % shuklaThemes.length];
+  } else {
+    // Waning moon: introspection, mercy, reflection, letting go
+    const krishnaThemes = [6, 16, 23, 25]; // Varuna, Urvashi, Rudra's Grace, Gambler's Lament
+    // Use tithi to vary within waning period
+    return krishnaThemes[tithi % krishnaThemes.length];
+  }
+}
+
+/**
+ * Get today's story based on cosmic context
+ *
+ * Enhanced selection that considers:
+ * - Special occasions (Purnima, Amavasya, Ekadashi)
+ * - Paksha for thematic alignment
+ * - Tithi for daily variation
+ * - Nakshatra as ultimate fallback
  *
  * @param nakshatraNumber - Current nakshatra (1-27)
+ * @param tithi - Current tithi (1-30, optional)
+ * @param paksha - Current paksha ('shukla' or 'krishna', optional)
  * @returns The selected Rigveda story
  */
-export function getTodaysStory(nakshatraNumber: number): RigvedaStory {
+export function getTodaysStory(
+  nakshatraNumber: number,
+  tithi?: number,
+  paksha?: Paksha
+): RigvedaStory {
   // Validate nakshatra number
   if (nakshatraNumber < 1 || nakshatraNumber > 27) {
     console.warn(`Invalid nakshatra number: ${nakshatraNumber}. Using 1.`);
     nakshatraNumber = 1;
   }
 
-  // Get the story corresponding to this nakshatra
-  // Nakshatra numbers are 1-indexed, array is 0-indexed
-  const storyIndex = nakshatraNumber - 1;
-  const story = storiesData.stories[storyIndex];
+  let storyId: number;
+
+  // If tithi and paksha are provided, use contextual selection
+  if (tithi !== undefined && paksha !== undefined) {
+    storyId = getContextualStoryId({ nakshatraNumber, tithi, paksha });
+  } else {
+    // Fallback to simple nakshatra-based selection
+    storyId = nakshatraNumber;
+  }
+
+  // Get the story by ID (stories are 1-indexed in JSON)
+  const story = storiesData.stories.find(s => s.id === storyId);
 
   if (!story) {
-    console.error(`Story not found for nakshatra ${nakshatraNumber}`);
+    console.error(`Story not found for ID ${storyId}`);
     // Fallback to first story
     return storiesData.stories[0] as RigvedaStory;
   }

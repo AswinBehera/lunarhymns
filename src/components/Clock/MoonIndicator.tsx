@@ -68,10 +68,12 @@ export function MoonIndicator({
 
   return (
     <svg
-      width="1000"
-      height="1000"
+      width="100%"
+      height="100%"
       viewBox="0 0 1000 1000"
-      className="absolute inset-0 pointer-events-none"
+      preserveAspectRatio="xMidYMid meet"
+      className="pointer-events-none"
+      style={{ zIndex: 7 }}
     >
       <defs>
         {/* Moon glow filter */}

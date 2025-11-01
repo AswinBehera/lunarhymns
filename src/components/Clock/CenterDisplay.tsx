@@ -368,6 +368,83 @@ export function CenterDisplay({ vedicTime }: CenterDisplayProps) {
           </div>
         </motion.div>
 
+        {/* Muhurta and Prana Display - Side by Side */}
+        <motion.div
+          variants={itemVariants}
+          className="mt-6 grid grid-cols-2 gap-4 w-full max-w-sm"
+        >
+          {/* Muhurta Display */}
+          <motion.div className="text-center">
+            <motion.div
+              className="text-xs uppercase tracking-wider mb-1"
+              style={{ color: goldColor }}
+              animate={{ opacity: [0.7, 1, 0.7] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+            >
+              Muhurta
+            </motion.div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={vedicTime.muhurta.number}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.05 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+              >
+                <div
+                  className="text-base font-semibold"
+                  style={{ color: lightGoldColor }}
+                >
+                  {vedicTime.muhurta.name}
+                </div>
+                <div
+                  className="text-xs mt-1"
+                  style={{ color: goldColor, opacity: 0.7 }}
+                >
+                  {vedicTime.muhurta.number}/30
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
+
+          {/* Prana Display */}
+          <motion.div className="text-center">
+            <motion.div
+              className="text-xs uppercase tracking-wider mb-1"
+              style={{ color: '#87CEEB' }}
+              animate={{ opacity: [0.7, 1, 0.7] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            >
+              Prana
+            </motion.div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={vedicTime.prana.number}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.05 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+              >
+                <div
+                  className="text-base font-semibold"
+                  style={{ color: '#B0E0E6' }}
+                >
+                  {vedicTime.prana.number.toLocaleString()}
+                </div>
+                <div
+                  className="text-xs mt-1"
+                  style={{
+                    color: vedicTime.prana.breathPhase === 'inhale' ? '#4A90E2' : '#D4AF37',
+                    fontStyle: 'italic'
+                  }}
+                >
+                  {vedicTime.prana.breathPhase}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
+        </motion.div>
+
         {/* Timestamp with fade */}
         <motion.div
           variants={itemVariants}

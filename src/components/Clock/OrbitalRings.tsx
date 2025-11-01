@@ -10,7 +10,7 @@
  * Features slow rotation animation and interactive hover states
  */
 
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { motion } from 'framer-motion';
 import { NAKSHATRA_NAMES, TITHI_NAMES } from '../../lib/vedic-calendar';
 
@@ -40,18 +40,18 @@ function polarToCartesian(
 /**
  * Concentric orbital rings with nakshatra and tithi markers
  */
-export function OrbitalRings({
+const OrbitalRingsComponent = ({
   currentTithi = 1,
   currentNakshatra = 1,
-}: OrbitalRingsProps) {
+}: OrbitalRingsProps) => {
   const [hoveredNakshatra, setHoveredNakshatra] = useState<number | null>(null);
   const [hoveredTithi, setHoveredTithi] = useState<number | null>(null);
 
   const centerX = 500;
   const centerY = 500;
-  const outerRadius = 400;
-  const middleRadius = 300;
-  const innerRadius = 200;
+  const outerRadius = 400;  // Nakshatra ring
+  const middleRadius = 350; // Tithi ring (updated from 300)
+  const innerRadius = 200;  // Decorative boundary
 
   // Golden color for rings
   const goldColor = '#D4AF37';
@@ -59,11 +59,12 @@ export function OrbitalRings({
 
   return (
     <svg
-      width="1000"
-      height="1000"
+      width="100%"
+      height="100%"
       viewBox="0 0 1000 1000"
-      className="max-w-full h-auto"
-      style={{ filter: 'drop-shadow(0 0 10px rgba(212, 175, 55, 0.3))' }}
+      preserveAspectRatio="xMidYMid meet"
+      className="pointer-events-none"
+      style={{ filter: 'drop-shadow(0 0 10px rgba(212, 175, 55, 0.3))', zIndex: 1 }}
     >
       {/* Define gradients and glows */}
       <defs>
@@ -109,8 +110,8 @@ export function OrbitalRings({
           r={outerRadius}
           fill="none"
           stroke={goldColor}
-          strokeWidth="2"
-          opacity="0.6"
+          strokeWidth="3"
+          opacity="0.8"
           filter="url(#glow)"
         />
 
@@ -121,8 +122,8 @@ export function OrbitalRings({
           r={middleRadius}
           fill="none"
           stroke={goldColor}
-          strokeWidth="2"
-          opacity="0.5"
+          strokeWidth="3"
+          opacity="0.7"
           filter="url(#glow)"
         />
 
@@ -133,8 +134,8 @@ export function OrbitalRings({
           r={innerRadius}
           fill="none"
           stroke={goldColor}
-          strokeWidth="2"
-          opacity="0.4"
+          strokeWidth="3"
+          opacity="0.6"
           filter="url(#glow)"
         />
 
@@ -392,7 +393,7 @@ export function OrbitalRings({
         >
           {(() => {
             const angle = ((hoveredTithi - 1) * 360) / 30;
-            const pos = polarToCartesian(centerX, centerY, middleRadius + 30, angle);
+            const pos = polarToCartesian(centerX, centerY, middleRadius + 40, angle);
             const tithiName = TITHI_NAMES[(hoveredTithi - 1) % 15];
 
             return (
@@ -427,4 +428,7 @@ export function OrbitalRings({
       )}
     </svg>
   );
-}
+};
+
+// Memoize to prevent unnecessary re-renders
+export const OrbitalRings = memo(OrbitalRingsComponent);
