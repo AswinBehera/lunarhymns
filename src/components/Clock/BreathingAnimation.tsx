@@ -9,8 +9,8 @@
  * - 3-4s: Complete cycle (return to start)
  */
 
-import { useState, useEffect, useRef, memo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useRef, memo } from 'react';
+import { motion } from 'framer-motion';
 import type { PranaData } from '../../lib/vedic-calendar';
 
 interface BreathingAnimationProps {
@@ -75,7 +75,6 @@ function getAnimationValues(progress: number): {
 const BreathingAnimationComponent = ({ prana, audioEnabled = false }: BreathingAnimationProps) => {
   const centerX = 500;
   const centerY = 500;
-  const [breathCycle, setBreathCycle] = useState(0);
   const audioContextRef = useRef<AudioContext | null>(null);
   const lastPranaRef = useRef(prana.number);
 
@@ -109,10 +108,6 @@ const BreathingAnimationComponent = ({ prana, audioEnabled = false }: BreathingA
     }
   }, [prana.number, audioEnabled, prana.progress]);
 
-  // Update breath cycle counter
-  useEffect(() => {
-    setBreathCycle(prev => prev + 1);
-  }, [prana.number]);
 
   /**
    * Play a subtle breath sound (Web Audio API)

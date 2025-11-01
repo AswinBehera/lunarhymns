@@ -51,18 +51,18 @@ export interface StorySelectionContext {
  * @returns Story ID (1-27)
  */
 function getContextualStoryId(context: StorySelectionContext): number {
-  const { tithi, paksha, nakshatraNumber } = context;
+  const { tithi, paksha } = context;
 
   // Special Occasions
   // Purnima (Full Moon - 15th tithi of Shukla Paksha)
-  if (tithi === 15 && paksha === 'shukla') {
+  if (tithi === 15 && paksha === 'Shukla') {
     // Stories about illumination, unity, completion
     const purnimStories = [14, 20, 22]; // Gayatri, Golden Embryo, Unity
     return purnimStories[Math.floor(Date.now() / (1000 * 60 * 60 * 24)) % purnimStories.length];
   }
 
   // Amavasya (New Moon - 15th/30th tithi of Krishna Paksha)
-  if ((tithi === 15 || tithi === 30) && paksha === 'krishna') {
+  if ((tithi === 15 || tithi === 30) && paksha === 'Krishna') {
     // Stories about creation, mystery, new beginnings
     const amavasyaStories = [1, 5, 20]; // Nasadiya, Riddle Hymn, Golden Embryo
     return amavasyaStories[Math.floor(Date.now() / (1000 * 60 * 60 * 24)) % amavasyaStories.length];
@@ -72,11 +72,11 @@ function getContextualStoryId(context: StorySelectionContext): number {
   if (tithi === 11) {
     // Stories about devotion, purification, spiritual practice
     const ekadasiStories = [6, 7, 14]; // Prayer to Varuna, Soma Pavamana, Gayatri
-    return ekadasiStories[paksha === 'shukla' ? 2 : 0]; // Gayatri for Shukla, Varuna for Krishna
+    return ekadasiStories[paksha === 'Shukla' ? 2 : 0]; // Gayatri for Shukla, Varuna for Krishna
   }
 
   // Paksha-based selection
-  if (paksha === 'shukla') {
+  if (paksha === 'Shukla') {
     // Waxing moon: growth, light, victory, beginnings
     const shuklaThemes = [3, 4, 8, 13, 19, 21]; // Agni, Indra's Greatness, Dawn, Vishnu, Indra Slays Vritra, Savitṛ
     // Use tithi to vary within waxing period

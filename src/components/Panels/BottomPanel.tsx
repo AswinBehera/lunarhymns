@@ -248,7 +248,7 @@ export function BottomPanel({ story, nakshatraName, defaultOpen = false, onHymnR
                     Themes
                   </h3>
                   <div className="flex flex-wrap gap-2">
-                    {story.themes.map((theme, index) => (
+                    {story.themes.map((theme) => (
                       <span
                         key={theme}
                         className="px-3 py-1 rounded-full text-xs font-medium"

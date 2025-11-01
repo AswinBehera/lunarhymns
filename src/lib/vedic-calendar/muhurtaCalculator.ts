@@ -97,7 +97,7 @@ export function getSunrise(date: Date, latitude: number, longitude: number): Dat
     const sunrise = Astronomy.SearchRiseSet(
       Astronomy.Body.Sun,
       observer,
-      Astronomy.Direction.Rise,
+      +1, // Direction: +1 for rise, -1 for set
       startOfDay,
       1 // Search within 1 day
     );

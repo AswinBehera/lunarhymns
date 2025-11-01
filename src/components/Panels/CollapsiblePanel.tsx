@@ -10,7 +10,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { motion, useMotionValue, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useScreenSize } from '../../hooks/useScreenSize';
 
 export type PanelPosition = 'left' | 'right' | 'bottom' | 'top';
@@ -76,8 +76,6 @@ export function CollapsiblePanel({
   };
 
   const [isOpen, setIsOpen] = useState(getInitialState);
-  const dragY = useMotionValue(0);
-  const dragX = useMotionValue(0);
 
   // Persist state changes
   useEffect(() => {

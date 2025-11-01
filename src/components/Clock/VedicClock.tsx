@@ -46,8 +46,6 @@ interface VedicClockProps {
 export function VedicClock({
   latitude,
   longitude,
-  locationName,
-  updateInterval = 60000, // Update every minute by default
 }: VedicClockProps) {
   const [vedicTime, setVedicTime] = useState<VedicTime | null>(null);
   const [isLoading, setIsLoading] = useState(true);

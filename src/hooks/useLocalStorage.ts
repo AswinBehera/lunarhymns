@@ -4,7 +4,7 @@
  * A generic hook for persisting state in localStorage
  */
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 /**
  * Custom hook for localStorage with automatic JSON serialization

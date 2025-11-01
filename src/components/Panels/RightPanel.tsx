@@ -9,7 +9,7 @@
  * - Reading tracker with streak counter
  */
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CollapsiblePanel } from './CollapsiblePanel';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
@@ -36,8 +36,6 @@ interface RightPanelProps {
 export function RightPanel({
   vedicTime,
   locationState,
-  currentStoryId,
-  onHymnRead,
 }: RightPanelProps) {
   const { location, loading, error, isManual, requestLocation, setManualLocation } = locationState;
 
@@ -62,8 +60,8 @@ export function RightPanel({
   const [newTaskText, setNewTaskText] = useState('');
 
   // Reading history storage
-  const [readingHistory, setReadingHistory] = useLocalStorage<ReadingEntry[]>('vedic-clock-reading-history', []);
-  const [streak, setStreak] = useLocalStorage<ReadingStreak>('vedic-clock-reading-streak', {
+  const [readingHistory] = useLocalStorage<ReadingEntry[]>('vedic-clock-reading-history', []);
+  const [streak] = useLocalStorage<ReadingStreak>('vedic-clock-reading-streak', {
     currentStreak: 0,
     longestStreak: 0,
     lastReadDate: '',
@@ -155,7 +153,6 @@ export function RightPanel({
 
     const occurrences: TithiOccurrence[] = [];
     const today = new Date();
-    const currentTithi = vedicTime.tithi;
 
     // For simplicity, we'll show the current tithi cycle (30 tithis)
     // In reality, you'd calculate actual dates for each tithi
