@@ -1,0 +1,335 @@
+{
+  "words": [
+    {
+      "sanskrit": "अग्निम्",
+      "transliteration": "agnim",
+      "root": "अग्नि (agni)",
+      "dhatu": "अङ्ग् (aṅg - to go, to approach)",
+      "meaning": "Fire, the Fire God",
+      "grammaticalForm": "Accusative singular masculine",
+      "etymology": "From root aṅg (to move sinuously). Agni is the divine fire, both physical and spiritual.",
+      "usageFrequency": 95,
+      "contexts": [
+        "RV 1.1.1 - Opening invocation",
+        "RV 8.44.16 - Fire as messenger",
+        "RV 10.79.1 - Fire as witness"
+      ],
+      "relatedWords": ["अग्ने (agne - O Fire)", "अग्नि (agni - fire)", "अग्नेः (agneḥ - of fire)"],
+      "semanticField": "deity, element",
+      "culturalNotes": "Agni is one of the most important Vedic deities, the mediator between humans and gods."
+    },
+    {
+      "sanskrit": "ईळे",
+      "transliteration": "īḷe",
+      "root": "ईड् (īḍ)",
+      "dhatu": "ईड् (īḍ - to praise, to implore)",
+      "meaning": "I praise, I worship",
+      "grammaticalForm": "1st person singular present middle",
+      "etymology": "From root īḍ (to praise). The middle voice indicates the action benefits the speaker.",
+      "usageFrequency": 78,
+      "contexts": [
+        "RV 1.1.1 - First word of invocation",
+        "RV 3.62.10 - Gayatri Mantra context",
+        "RV 7.32.26 - Praise of Indra"
+      ],
+      "relatedWords": ["ईडते (īḍate - they praise)", "ईळिषे (īḷiṣe - you shall praise)"],
+      "semanticField": "worship, invocation",
+      "culturalNotes": "The act of praising gods through mantras is central to Vedic ritual."
+    },
+    {
+      "sanskrit": "पुरोहितम्",
+      "transliteration": "purohitam",
+      "root": "पुरोहित (purohita)",
+      "dhatu": "पुरस् + धा (puras + dhā - placed in front)",
+      "meaning": "Priest, one placed in front",
+      "grammaticalForm": "Accusative singular masculine",
+      "etymology": "From puras (in front) + hita (placed). Originally meant the chief priest at sacrifices.",
+      "usageFrequency": 42,
+      "contexts": [
+        "RV 1.1.1 - Agni as priest",
+        "RV 2.1.2 - Mediator role",
+        "RV 10.91.5 - Priest of the sacrifice"
+      ],
+      "relatedWords": ["पुरोहित (purohita - priest)", "पुरोधा (purodhā - one who places in front)"],
+      "semanticField": "ritual, priesthood",
+      "culturalNotes": "The purohita was the family or royal priest, advisor on religious matters."
+    },
+    {
+      "sanskrit": "यज्ञस्य",
+      "transliteration": "yajñasya",
+      "root": "यज्ञ (yajña)",
+      "dhatu": "यज् (yaj - to worship, to sacrifice)",
+      "meaning": "Of the sacrifice",
+      "grammaticalForm": "Genitive singular masculine",
+      "etymology": "From root yaj (to worship). Yajña encompasses ritual worship and cosmic order.",
+      "usageFrequency": 89,
+      "contexts": [
+        "RV 1.1.1 - Context of sacrifice",
+        "RV 3.26.7 - Sacrifice to Agni",
+        "RV 10.90.16 - Cosmic sacrifice (Purusha Sukta)"
+      ],
+      "relatedWords": ["यज्ञ (yajña - sacrifice)", "यजति (yajati - he sacrifices)", "यज्ञेन (yajñena - by sacrifice)"],
+      "semanticField": "ritual, worship",
+      "culturalNotes": "Yajña is the central act of Vedic religion, maintaining cosmic and social order."
+    },
+    {
+      "sanskrit": "देवम्",
+      "transliteration": "devam",
+      "root": "देव (deva)",
+      "dhatu": "दिव् (div - to shine, to play)",
+      "meaning": "God, divine being, shining one",
+      "grammaticalForm": "Accusative singular masculine",
+      "etymology": "From root div (to shine). Deva means 'shining one' or 'celestial being'.",
+      "usageFrequency": 92,
+      "contexts": [
+        "RV 1.1.1 - Divine nature of Agni",
+        "RV 10.129.3 - Question of gods' origin",
+        "RV 2.33.8 - Rudra as deva"
+      ],
+      "relatedWords": ["देव (deva - god)", "देवाः (devāḥ - gods)", "देवी (devī - goddess)"],
+      "semanticField": "deity, divine",
+      "culturalNotes": "Devas are luminous celestial beings, gods of light and natural forces."
+    },
+    {
+      "sanskrit": "ऋत्विजम्",
+      "transliteration": "ṛtvijam",
+      "root": "ऋत्विज् (ṛtvij)",
+      "dhatu": "ऋतु + यज् (ṛtu + yaj - one who sacrifices in seasons)",
+      "meaning": "Sacrificial priest, ritual officiant",
+      "grammaticalForm": "Accusative singular masculine",
+      "etymology": "From ṛtu (season, order) + yaj (sacrifice). One who performs seasonal sacrifices.",
+      "usageFrequency": 38,
+      "contexts": [
+        "RV 1.1.1 - Agni as ritual priest",
+        "RV 3.29.15 - Invoking the ṛtvij",
+        "RV 5.11.2 - Priest's role"
+      ],
+      "relatedWords": ["ऋत्विज् (ṛtvij - priest)", "ऋतु (ṛtu - season, order)"],
+      "semanticField": "ritual, priesthood",
+      "culturalNotes": "Ṛtvij priests performed specific roles in elaborate Vedic sacrifices."
+    },
+    {
+      "sanskrit": "होतारम्",
+      "transliteration": "hotāram",
+      "root": "होतृ (hotṛ)",
+      "dhatu": "हु (hu - to offer, to pour oblations)",
+      "meaning": "Invoker, one who pours oblations",
+      "grammaticalForm": "Accusative singular masculine",
+      "etymology": "From root hu (to offer). The hotṛ priest invokes gods and pours offerings into fire.",
+      "usageFrequency": 56,
+      "contexts": [
+        "RV 1.1.1 - Agni as invoker",
+        "RV 2.1.2 - Chief priest role",
+        "RV 8.43.24 - Invoking with oblations"
+      ],
+      "relatedWords": ["होतृ (hotṛ - invoker)", "हवन (havana - oblation)", "हुति (huti - offering)"],
+      "semanticField": "ritual, invocation",
+      "culturalNotes": "The hotṛ is one of the four main priests, responsible for Rigvedic recitations."
+    },
+    {
+      "sanskrit": "रत्नधातमम्",
+      "transliteration": "ratnadhātamam",
+      "root": "रत्नधातम (ratnadhātama)",
+      "dhatu": "रत्न + धा (ratna + dhā - bestower of treasures)",
+      "meaning": "Most generous giver of wealth, bestower of treasures",
+      "grammaticalForm": "Accusative singular masculine (superlative)",
+      "etymology": "From ratna (treasure, jewel) + dhātama (most generous giver). Superlative form.",
+      "usageFrequency": 24,
+      "contexts": [
+        "RV 1.1.1 - Agni as generous giver",
+        "RV 5.1.5 - Giver of riches",
+        "RV 7.16.4 - Bestower of gems"
+      ],
+      "relatedWords": ["रत्न (ratna - treasure)", "धातृ (dhātṛ - giver)", "रत्नधा (ratnadhā - treasure-giver)"],
+      "semanticField": "wealth, generosity",
+      "culturalNotes": "Ratna includes material wealth, spiritual treasures, and divine blessings."
+    },
+    {
+      "sanskrit": "अग्ने",
+      "transliteration": "agne",
+      "root": "अग्नि (agni)",
+      "dhatu": "अङ्ग् (aṅg - to go, to approach)",
+      "meaning": "O Fire!, O Agni! (vocative)",
+      "grammaticalForm": "Vocative singular masculine",
+      "etymology": "Vocative form of agni. Used when directly addressing the Fire god.",
+      "usageFrequency": 88,
+      "contexts": [
+        "RV 1.1.2 - Direct address to Agni",
+        "RV 4.1.1 - Invocation",
+        "RV 10.87.1 - Calling upon Agni"
+      ],
+      "relatedWords": ["अग्निम् (agnim - fire, acc)", "अग्नि (agni - fire)", "अग्नेः (agneḥ - of fire)"],
+      "semanticField": "deity, invocation",
+      "culturalNotes": "The vocative form is used in direct prayer and invocation."
+    },
+    {
+      "sanskrit": "त्वम्",
+      "transliteration": "tvam",
+      "root": "त्वम् (tvam)",
+      "dhatu": "युष्मद् (yuṣmad - you, second person pronoun)",
+      "meaning": "You",
+      "grammaticalForm": "Nominative singular, 2nd person pronoun",
+      "etymology": "Proto-Indo-European *túh₂. Cognate with Latin tu, English thou.",
+      "usageFrequency": 98,
+      "contexts": [
+        "RV 1.1.2 - Addressing Agni",
+        "RV 10.129.6 - Cosmic questions",
+        "RV 3.62.10 - Gayatri Mantra"
+      ],
+      "relatedWords": ["त्वा (tvā - you, acc)", "तव (tava - your)", "ते (te - to you)"],
+      "semanticField": "pronoun",
+      "culturalNotes": "Used to establish direct relationship between worshipper and deity."
+    },
+    {
+      "sanskrit": "ऋषिभिः",
+      "transliteration": "ṛṣibhiḥ",
+      "root": "ऋषि (ṛṣi)",
+      "dhatu": "ऋष् (ṛṣ - to flow, to rush, to see)",
+      "meaning": "By the seers, by the sages",
+      "grammaticalForm": "Instrumental plural masculine",
+      "etymology": "From root ṛṣ (to see, perceive). Ṛṣis are 'seers' who perceived divine truths.",
+      "usageFrequency": 71,
+      "contexts": [
+        "RV 1.1.2 - Ancient and modern seers",
+        "RV 10.14.15 - Seers of old",
+        "RV 3.53.7 - Wisdom of ṛṣis"
+      ],
+      "relatedWords": ["ऋषि (ṛṣi - seer)", "ऋषयः (ṛṣayaḥ - seers, nom pl)", "ऋषीणाम् (ṛṣīṇām - of the seers)"],
+      "semanticField": "wisdom, seer",
+      "culturalNotes": "Ṛṣis are the visionary poets who 'saw' the Vedic hymns through divine inspiration."
+    },
+    {
+      "sanskrit": "पूर्व्यः",
+      "transliteration": "pūrvyaḥ",
+      "root": "पूर्व्य (pūrvya)",
+      "dhatu": "पूर्व (pūrva - former, ancient)",
+      "meaning": "Ancient, of old",
+      "grammaticalForm": "Nominative plural masculine",
+      "etymology": "From pūrva (before, former) + ya suffix. Meaning 'belonging to former times'.",
+      "usageFrequency": 45,
+      "contexts": [
+        "RV 1.1.2 - Ancient seers",
+        "RV 10.90.11 - Ancient ritual",
+        "RV 4.42.8 - Former generations"
+      ],
+      "relatedWords": ["पूर्व (pūrva - former)", "पुरा (purā - formerly)", "पूर्वतर (pūrvatara - more ancient)"],
+      "semanticField": "time, antiquity",
+      "culturalNotes": "References to ancient seers establish continuity of sacred tradition."
+    },
+    {
+      "sanskrit": "नूतनैः",
+      "transliteration": "nūtanaiḥ",
+      "root": "नूतन (nūtana)",
+      "dhatu": "नु (nu - now) + तन",
+      "meaning": "By the new, by the modern",
+      "grammaticalForm": "Instrumental plural masculine",
+      "etymology": "From nu (now) with -tana suffix. Meaning 'belonging to the present time'.",
+      "usageFrequency": 28,
+      "contexts": [
+        "RV 1.1.2 - Modern seers",
+        "RV 5.29.10 - New songs",
+        "RV 8.76.12 - Fresh hymns"
+      ],
+      "relatedWords": ["नूतन (nūtana - new)", "नव (nava - new)", "नव्य (navya - young, fresh)"],
+      "semanticField": "time, modernity",
+      "culturalNotes": "Shows that Vedic tradition was living and evolving, not just ancient."
+    },
+    {
+      "sanskrit": "इड्यः",
+      "transliteration": "iḍyaḥ",
+      "root": "इड्य (iḍya)",
+      "dhatu": "ईड् (īḍ - to praise) + य",
+      "meaning": "Worthy of praise, to be worshipped",
+      "grammaticalForm": "Nominative singular masculine (gerundive)",
+      "etymology": "Gerundive from īḍ (to praise). Meaning 'one who should be praised'.",
+      "usageFrequency": 52,
+      "contexts": [
+        "RV 1.1.2 - Agni worthy of worship",
+        "RV 3.1.23 - Deserving praise",
+        "RV 6.16.47 - To be invoked"
+      ],
+      "relatedWords": ["इड्या (iḍyā - praiseworthy, fem)", "ईड् (īḍ - to praise)", "ईळिते (īḷite - is praised)"],
+      "semanticField": "worship, praise",
+      "culturalNotes": "Gerundive form expresses obligation or worthiness to be praised."
+    },
+    {
+      "sanskrit": "देवः",
+      "transliteration": "devaḥ",
+      "root": "देव (deva)",
+      "dhatu": "दिव् (div - to shine, to play)",
+      "meaning": "God, the shining one",
+      "grammaticalForm": "Nominative singular masculine",
+      "etymology": "From root div (to shine). Subject form of deva.",
+      "usageFrequency": 94,
+      "contexts": [
+        "RV 1.1.2 - Agni the god",
+        "RV 10.121.1 - Which god?",
+        "RV 1.164.46 - One reality, many names"
+      ],
+      "relatedWords": ["देवम् (devam - god, acc)", "देवाः (devāḥ - gods, nom pl)", "दिव्य (divya - divine)"],
+      "semanticField": "deity, divine",
+      "culturalNotes": "Nominative form identifies the subject as divine being."
+    },
+    {
+      "sanskrit": "वक्षि",
+      "transliteration": "vakṣi",
+      "root": "वह् (vah)",
+      "dhatu": "वह् (vah - to carry, to convey)",
+      "meaning": "You will carry, you shall convey",
+      "grammaticalForm": "2nd person singular future active",
+      "etymology": "Future tense of vah (to carry). Agni carries offerings to the gods.",
+      "usageFrequency": 41,
+      "contexts": [
+        "RV 1.1.2 - Agni will carry offerings",
+        "RV 4.3.6 - Conveying to heaven",
+        "RV 5.15.2 - Bearer of oblations"
+      ],
+      "relatedWords": ["वहति (vahati - he carries)", "वाहन (vāhana - vehicle)", "आवह (āvaha - bringing)"],
+      "semanticField": "ritual, conveyance",
+      "culturalNotes": "Agni's role as messenger carrying offerings from earth to heaven."
+    },
+    {
+      "sanskrit": "हविः",
+      "transliteration": "haviḥ",
+      "root": "हविस् (havis)",
+      "dhatu": "हु (hu - to offer, to pour)",
+      "meaning": "Oblation, offering, clarified butter",
+      "grammaticalForm": "Accusative singular neuter",
+      "etymology": "From root hu (to offer). The material offering poured into the sacrificial fire.",
+      "usageFrequency": 67,
+      "contexts": [
+        "RV 1.1.3 - Offering to Agni",
+        "RV 2.3.2 - Pouring oblations",
+        "RV 10.9.3 - Waters as havis"
+      ],
+      "relatedWords": ["हवन (havana - oblation)", "हुति (huti - offering)", "आहुति (āhuti - sacrifice)"],
+      "semanticField": "ritual, offering",
+      "culturalNotes": "Havis typically refers to ghee (clarified butter) offered in fire sacrifices."
+    },
+    {
+      "sanskrit": "सुवीर्यम्",
+      "transliteration": "suvīryam",
+      "root": "सुवीर्य (suvīrya)",
+      "dhatu": "सु + वीर्य (su + vīrya - good heroism/offspring)",
+      "meaning": "Blessed with heroes/good offspring, prosperity",
+      "grammaticalForm": "Accusative singular neuter",
+      "etymology": "From su (good) + vīrya (heroism, virility, offspring). Prosperity through progeny.",
+      "usageFrequency": 33,
+      "contexts": [
+        "RV 1.1.3 - Blessing of offspring",
+        "RV 5.4.10 - Grant of heroic sons",
+        "RV 7.32.14 - Prosperity blessing"
+      ],
+      "relatedWords": ["वीर (vīra - hero)", "वीर्य (vīrya - heroism)", "सुमति (sumati - good mind)"],
+      "semanticField": "prosperity, offspring",
+      "culturalNotes": "Vedic prayers often seek vīrya - heroic sons to continue the family line."
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "lastUpdated": "2025-11-02",
+    "totalWords": 18,
+    "primarySource": "Rigveda Mandala 1, Sukta 1",
+    "notes": "Initial dictionary focusing on RV 1.1. Will expand to cover more hymns progressively."
+  }
+}

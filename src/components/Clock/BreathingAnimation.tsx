@@ -9,15 +9,13 @@
  * - 3-4s: Complete cycle (return to start)
  */
 
-import { useEffect, useRef, memo } from 'react';
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 import type { PranaData } from '../../lib/vedic-calendar';
 
 interface BreathingAnimationProps {
   /** Current prana data */
   prana: PranaData;
-  /** Enable audio feedback (optional) */
-  audioEnabled?: boolean;
 }
 
 /**
@@ -72,11 +70,9 @@ function getAnimationValues(progress: number): {
 /**
  * Breathing visualization with expanding/contracting mandala
  */
-const BreathingAnimationComponent = ({ prana, audioEnabled = false }: BreathingAnimationProps) => {
+const BreathingAnimationComponent = ({ prana }: BreathingAnimationProps) => {
   const centerX = 500;
   const centerY = 500;
-  const audioContextRef = useRef<AudioContext | null>(null);
-  const lastPranaRef = useRef(prana.number);
 
   // Colors for breath phases
   const inhaleColor = '#4A90E2'; // Soft blue
@@ -100,48 +96,7 @@ const BreathingAnimationComponent = ({ prana, audioEnabled = false }: BreathingA
   const baseRadius = 50;
   const currentRadius = baseRadius * scale;
 
-  // Play sound at the start of each prana (optional)
-  useEffect(() => {
-    if (audioEnabled && prana.number !== lastPranaRef.current) {
-      playBreathSound(prana.progress < 50 ? 'inhale' : 'exhale');
-      lastPranaRef.current = prana.number;
-    }
-  }, [prana.number, audioEnabled, prana.progress]);
-
-
-  /**
-   * Play a subtle breath sound (Web Audio API)
-   */
-  const playBreathSound = (phase: 'inhale' | 'exhale') => {
-    if (typeof window === 'undefined') return;
-
-    try {
-      if (!audioContextRef.current) {
-        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
-      }
-
-      const ctx = audioContextRef.current;
-      const oscillator = ctx.createOscillator();
-      const gainNode = ctx.createGain();
-
-      // Different frequencies for inhale vs exhale
-      oscillator.frequency.value = phase === 'inhale' ? 528 : 396; // Solfeggio frequencies
-      oscillator.type = 'sine';
-
-      // Gentle fade in and out
-      gainNode.gain.setValueAtTime(0, ctx.currentTime);
-      gainNode.gain.linearRampToValueAtTime(0.1, ctx.currentTime + 0.1);
-      gainNode.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.5);
-
-      oscillator.connect(gainNode);
-      gainNode.connect(ctx.destination);
-
-      oscillator.start(ctx.currentTime);
-      oscillator.stop(ctx.currentTime + 0.5);
-    } catch (error) {
-      console.warn('Audio playback not supported:', error);
-    }
-  };
+  // Breathing sounds removed - they don't feel peaceful
 
   return (
     <svg

@@ -7,6 +7,7 @@
  * - Multiple session durations
  * - Progress tracking
  * - Completion summary
+ * - Proper 4-phase breathing cycle (inhale, hold, exhale, hold)
  */
 
 import { useState, useEffect } from 'react';
@@ -16,42 +17,97 @@ import type { PranaData } from '../../lib/vedic-calendar';
 interface BreathingModalProps {
   /** Whether modal is open */
   isOpen: boolean;
-  /** Current prana data */
-  pranaData: PranaData;
+  /** Current prana data (kept for compatibility but not used) */
+  pranaData?: PranaData;
   /** Callback to close modal */
   onClose: () => void;
 }
 
 type SessionState = 'selection' | 'active' | 'paused' | 'completed';
+type BreathPhase = 'inhale' | 'hold-in' | 'exhale' | 'hold-out';
+
+interface BreathingPattern {
+  name: string;
+  description: string;
+  inhale: number;
+  holdIn: number;
+  exhale: number;
+  holdOut: number;
+  totalSeconds: number;
+}
 
 interface SessionOption {
   label: string;
-  pranas: number;
   minutes: number;
 }
 
 const SESSION_OPTIONS: SessionOption[] = [
-  { label: 'Quick', pranas: 25, minutes: 1.67 },
-  { label: 'Short', pranas: 75, minutes: 5 },
-  { label: 'Medium', pranas: 225, minutes: 15 },
-  { label: 'Long', pranas: 450, minutes: 30 },
+  { label: 'Quick', minutes: 2 },
+  { label: 'Short', minutes: 5 },
+  { label: 'Medium', minutes: 10 },
+  { label: 'Long', minutes: 20 },
+];
+
+// Scientifically-backed breathing patterns
+const BREATHING_PATTERNS: BreathingPattern[] = [
+  {
+    name: 'Box Breathing',
+    description: 'Equal timing - great for focus and stress relief',
+    inhale: 4,
+    holdIn: 4,
+    exhale: 4,
+    holdOut: 4,
+    totalSeconds: 16,
+  },
+  {
+    name: '4-7-8 Breathing',
+    description: 'Relaxation technique - promotes calmness and sleep',
+    inhale: 4,
+    holdIn: 7,
+    exhale: 8,
+    holdOut: 0,
+    totalSeconds: 19,
+  },
+  {
+    name: 'Coherent Breathing',
+    description: 'Simple and effective - 5 breaths per minute',
+    inhale: 5,
+    holdIn: 0,
+    exhale: 5,
+    holdOut: 0,
+    totalSeconds: 10,
+  },
+  {
+    name: 'Deep Calm',
+    description: 'Extended exhale - deeply relaxing',
+    inhale: 4,
+    holdIn: 2,
+    exhale: 6,
+    holdOut: 2,
+    totalSeconds: 14,
+  },
 ];
 
 /**
  * Full-screen breathing meditation modal
  */
-export function BreathingModal({ isOpen, pranaData, onClose }: BreathingModalProps) {
+export function BreathingModal({ isOpen, onClose }: BreathingModalProps) {
   const [sessionState, setSessionState] = useState<SessionState>('selection');
   const [selectedOption, setSelectedOption] = useState<SessionOption | null>(null);
-  const [customPranas, setCustomPranas] = useState<number>(100);
+  const [selectedPattern, setSelectedPattern] = useState<BreathingPattern>(BREATHING_PATTERNS[0]);
+  const [customMinutes, setCustomMinutes] = useState<number>(5);
   const [showCustomInput, setShowCustomInput] = useState(false);
 
   // Session tracking
-  const [sessionStartPrana, setSessionStartPrana] = useState<number>(0);
-  const [sessionTargetPranas, setSessionTargetPranas] = useState<number>(0);
-  const [completedPranas, setCompletedPranas] = useState<number>(0);
   const [sessionStartTime, setSessionStartTime] = useState<Date | null>(null);
+  const [sessionTargetSeconds, setSessionTargetSeconds] = useState<number>(0);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
+  const [breathCount, setBreathCount] = useState<number>(0);
+
+  // Breathing cycle tracking
+  const [currentPhase, setCurrentPhase] = useState<BreathPhase>('inhale');
+  const [phaseProgress, setPhaseProgress] = useState<number>(0); // 0-100 for current phase
+  const [cycleStartTime, setCycleStartTime] = useState<number>(Date.now());
 
   const goldColor = '#D4AF37';
   const lightGoldColor = '#F4E5B8';
@@ -65,24 +121,72 @@ export function BreathingModal({ isOpen, pranaData, onClose }: BreathingModalPro
       const interval = setInterval(() => {
         const elapsed = Math.floor((Date.now() - sessionStartTime.getTime()) / 1000);
         setElapsedTime(elapsed);
+
+        // Check if session is complete
+        if (elapsed >= sessionTargetSeconds) {
+          setSessionState('completed');
+        }
       }, 1000);
 
       return () => clearInterval(interval);
     }
-  }, [sessionState, sessionStartTime]);
+  }, [sessionState, sessionStartTime, sessionTargetSeconds]);
 
-  // Track prana progress during active session
+  // Breathing cycle timer - runs during active session
   useEffect(() => {
-    if (sessionState === 'active' && sessionStartPrana > 0) {
-      const pranasCompleted = pranaData.number - sessionStartPrana;
-      setCompletedPranas(pranasCompleted);
+    if (sessionState !== 'active') return;
 
-      // Check if session is complete
-      if (pranasCompleted >= sessionTargetPranas) {
-        setSessionState('completed');
+    const interval = setInterval(() => {
+      const now = Date.now();
+      const elapsed = (now - cycleStartTime) / 1000; // seconds since cycle start
+      const pattern = selectedPattern;
+
+      // Determine current phase and progress
+      let newPhase: BreathPhase = 'inhale';
+      let phaseStartTime = 0;
+      let phaseDuration = 0;
+
+      // Inhale phase
+      if (elapsed < pattern.inhale) {
+        newPhase = 'inhale';
+        phaseStartTime = 0;
+        phaseDuration = pattern.inhale;
       }
-    }
-  }, [pranaData.number, sessionState, sessionStartPrana, sessionTargetPranas]);
+      // Hold-in phase
+      else if (elapsed < pattern.inhale + pattern.holdIn) {
+        newPhase = 'hold-in';
+        phaseStartTime = pattern.inhale;
+        phaseDuration = pattern.holdIn;
+      }
+      // Exhale phase
+      else if (elapsed < pattern.inhale + pattern.holdIn + pattern.exhale) {
+        newPhase = 'exhale';
+        phaseStartTime = pattern.inhale + pattern.holdIn;
+        phaseDuration = pattern.exhale;
+      }
+      // Hold-out phase
+      else if (elapsed < pattern.totalSeconds) {
+        newPhase = 'hold-out';
+        phaseStartTime = pattern.inhale + pattern.holdIn + pattern.exhale;
+        phaseDuration = pattern.holdOut;
+      }
+      // Cycle complete - start new cycle
+      else {
+        setCycleStartTime(now);
+        setBreathCount(prev => prev + 1);
+        return;
+      }
+
+      // Calculate progress within current phase (0-100)
+      const phaseElapsed = elapsed - phaseStartTime;
+      const progress = phaseDuration > 0 ? Math.min(100, (phaseElapsed / phaseDuration) * 100) : 100;
+
+      setCurrentPhase(newPhase);
+      setPhaseProgress(progress);
+    }, 50); // Update every 50ms for smooth animation
+
+    return () => clearInterval(interval);
+  }, [sessionState, cycleStartTime, selectedPattern]);
 
   // Reset on close
   useEffect(() => {
@@ -90,8 +194,10 @@ export function BreathingModal({ isOpen, pranaData, onClose }: BreathingModalPro
       setSessionState('selection');
       setSelectedOption(null);
       setShowCustomInput(false);
-      setCompletedPranas(0);
       setElapsedTime(0);
+      setBreathCount(0);
+      setCurrentPhase('inhale');
+      setPhaseProgress(0);
     }
   }, [isOpen]);
 
@@ -100,11 +206,13 @@ export function BreathingModal({ isOpen, pranaData, onClose }: BreathingModalPro
    */
   const startSession = (option: SessionOption) => {
     setSelectedOption(option);
-    setSessionStartPrana(pranaData.number);
-    setSessionTargetPranas(option.pranas);
+    setSessionTargetSeconds(option.minutes * 60);
     setSessionStartTime(new Date());
-    setCompletedPranas(0);
     setElapsedTime(0);
+    setBreathCount(0);
+    setCycleStartTime(Date.now());
+    setCurrentPhase('inhale');
+    setPhaseProgress(0);
     setSessionState('active');
   };
 
@@ -114,8 +222,7 @@ export function BreathingModal({ isOpen, pranaData, onClose }: BreathingModalPro
   const startCustomSession = () => {
     const option: SessionOption = {
       label: 'Custom',
-      pranas: customPranas,
-      minutes: customPranas / 15,
+      minutes: customMinutes,
     };
     startSession(option);
   };
@@ -140,6 +247,8 @@ export function BreathingModal({ isOpen, pranaData, onClose }: BreathingModalPro
    * Resume session
    */
   const resumeSession = () => {
+    // Reset cycle timer when resuming
+    setCycleStartTime(Date.now());
     setSessionState('active');
   };
 
@@ -156,12 +265,67 @@ export function BreathingModal({ isOpen, pranaData, onClose }: BreathingModalPro
   const returnToSelection = () => {
     setSessionState('selection');
     setSelectedOption(null);
-    setCompletedPranas(0);
     setElapsedTime(0);
+    setBreathCount(0);
   };
 
-  const remainingPranas = sessionTargetPranas - completedPranas;
-  const progress = sessionTargetPranas > 0 ? (completedPranas / sessionTargetPranas) * 100 : 0;
+  /**
+   * Get instruction text for current phase
+   */
+  const getPhaseInstruction = (): string => {
+    if (sessionState === 'paused') return 'Paused';
+    switch (currentPhase) {
+      case 'inhale':
+        return 'Breathe In';
+      case 'hold-in':
+        return 'Hold';
+      case 'exhale':
+        return 'Breathe Out';
+      case 'hold-out':
+        return 'Hold';
+      default:
+        return 'Breathe';
+    }
+  };
+
+  /**
+   * Get color for current phase
+   */
+  const getPhaseColor = (): string => {
+    switch (currentPhase) {
+      case 'inhale':
+        return cyanColor;
+      case 'hold-in':
+        return purpleColor;
+      case 'exhale':
+        return goldColor;
+      case 'hold-out':
+        return lightGoldColor;
+      default:
+        return goldColor;
+    }
+  };
+
+  /**
+   * Get scale for breathing animation
+   */
+  const getAnimationScale = (): number => {
+    const baseScale = 0.8;
+    const maxScale = 1.2;
+
+    if (currentPhase === 'inhale') {
+      return baseScale + (maxScale - baseScale) * (phaseProgress / 100);
+    } else if (currentPhase === 'hold-in') {
+      return maxScale;
+    } else if (currentPhase === 'exhale') {
+      return maxScale - (maxScale - baseScale) * (phaseProgress / 100);
+    } else {
+      return baseScale;
+    }
+  };
+
+  const remainingSeconds = sessionTargetSeconds - elapsedTime;
+  const progress = sessionTargetSeconds > 0 ? (elapsedTime / sessionTargetSeconds) * 100 : 0;
 
   return (
     <AnimatePresence>
@@ -208,49 +372,90 @@ export function BreathingModal({ isOpen, pranaData, onClose }: BreathingModalPro
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
-                className="text-center space-y-8"
+                className="text-center space-y-6"
               >
                 <div>
                   <h2 className="text-4xl font-bold mb-4" style={{ color: lightGoldColor }}>
                     Guided Breathing
                   </h2>
                   <p className="text-lg" style={{ color: dimGoldColor }}>
-                    Choose your meditation duration
-                  </p>
-                  <p className="text-sm mt-2" style={{ color: dimGoldColor }}>
-                    Current: Prana {pranaData.number} of 21,600 today
+                    Choose your meditation duration and breathing pattern
                   </p>
                 </div>
 
-                {/* Session Options */}
-                <div className="grid grid-cols-2 gap-4">
-                  {SESSION_OPTIONS.map((option) => (
-                    <motion.button
-                      key={option.label}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => startSession(option)}
-                      className="p-6 rounded-xl text-center transition-all"
-                      style={{
-                        backgroundColor: 'rgba(155, 126, 189, 0.15)',
-                        border: `2px solid ${purpleColor}60`,
-                      }}
-                    >
-                      <div className="text-2xl font-bold mb-2" style={{ color: purpleColor }}>
-                        {option.label}
-                      </div>
-                      <div className="text-sm" style={{ color: lightGoldColor }}>
-                        {option.pranas} pranas
-                      </div>
-                      <div className="text-xs mt-1" style={{ color: dimGoldColor }}>
-                        ~{Math.round(option.minutes)} min
-                      </div>
-                    </motion.button>
-                  ))}
+                {/* Breathing Pattern Selection */}
+                <div className="space-y-3">
+                  <p className="text-sm font-medium" style={{ color: lightGoldColor }}>
+                    Breathing Pattern
+                  </p>
+                  <div className="grid grid-cols-2 gap-3">
+                    {BREATHING_PATTERNS.map((pattern) => (
+                      <motion.button
+                        key={pattern.name}
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
+                        onClick={() => setSelectedPattern(pattern)}
+                        className="p-3 rounded-lg text-left transition-all"
+                        style={{
+                          backgroundColor:
+                            selectedPattern.name === pattern.name
+                              ? `${goldColor}30`
+                              : 'rgba(155, 126, 189, 0.1)',
+                          border: `2px solid ${
+                            selectedPattern.name === pattern.name ? goldColor : `${purpleColor}40`
+                          }`,
+                        }}
+                      >
+                        <div
+                          className="text-base font-semibold mb-1"
+                          style={{ color: selectedPattern.name === pattern.name ? goldColor : purpleColor }}
+                        >
+                          {pattern.name}
+                        </div>
+                        <div className="text-xs" style={{ color: dimGoldColor }}>
+                          {pattern.description}
+                        </div>
+                        <div className="text-xs mt-1.5" style={{ color: lightGoldColor }}>
+                          {pattern.inhale}s in
+                          {pattern.holdIn > 0 && ` • ${pattern.holdIn}s hold`} • {pattern.exhale}s out
+                          {pattern.holdOut > 0 && ` • ${pattern.holdOut}s hold`}
+                        </div>
+                      </motion.button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Duration Options */}
+                <div className="space-y-3">
+                  <p className="text-sm font-medium" style={{ color: lightGoldColor }}>
+                    Session Duration
+                  </p>
+                  <div className="grid grid-cols-4 gap-3">
+                    {SESSION_OPTIONS.map((option) => (
+                      <motion.button
+                        key={option.label}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => startSession(option)}
+                        className="p-4 rounded-xl text-center transition-all"
+                        style={{
+                          backgroundColor: 'rgba(135, 206, 235, 0.15)',
+                          border: `2px solid ${cyanColor}60`,
+                        }}
+                      >
+                        <div className="text-xl font-bold mb-1" style={{ color: cyanColor }}>
+                          {option.label}
+                        </div>
+                        <div className="text-sm" style={{ color: lightGoldColor }}>
+                          {option.minutes} min
+                        </div>
+                      </motion.button>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Custom Option */}
-                <div className="pt-4">
+                <div className="pt-2">
                   {!showCustomInput ? (
                     <button
                       onClick={() => setShowCustomInput(true)}
@@ -268,8 +473,8 @@ export function BreathingModal({ isOpen, pranaData, onClose }: BreathingModalPro
                       <div className="flex items-center gap-3 justify-center">
                         <input
                           type="number"
-                          value={customPranas}
-                          onChange={(e) => setCustomPranas(Math.max(1, parseInt(e.target.value) || 0))}
+                          value={customMinutes}
+                          onChange={(e) => setCustomMinutes(Math.max(1, parseInt(e.target.value) || 0))}
                           min="1"
                           className="w-24 px-3 py-2 rounded-md text-center outline-none"
                           style={{
@@ -278,10 +483,7 @@ export function BreathingModal({ isOpen, pranaData, onClose }: BreathingModalPro
                             color: lightGoldColor,
                           }}
                         />
-                        <span style={{ color: dimGoldColor }}>pranas</span>
-                        <span style={{ color: dimGoldColor }}>
-                          (~{Math.round(customPranas / 15)} min)
-                        </span>
+                        <span style={{ color: dimGoldColor }}>minutes</span>
                       </div>
                       <motion.button
                         whileHover={{ scale: 1.05 }}
@@ -322,25 +524,20 @@ export function BreathingModal({ isOpen, pranaData, onClose }: BreathingModalPro
                       style={{
                         width: 400,
                         height: 400,
-                        background: `radial-gradient(circle, ${
-                          pranaData.breathPhase === 'inhale' ? `${cyanColor}20` : `${goldColor}20`
-                        }, transparent 70%)`,
-                        border: `3px solid ${
-                          pranaData.breathPhase === 'inhale' ? cyanColor : goldColor
-                        }40`,
+                        background: `radial-gradient(circle, ${getPhaseColor()}20, transparent 70%)`,
+                        border: `3px solid ${getPhaseColor()}40`,
                       }}
                       animate={
                         sessionState === 'active'
                           ? {
-                              scale: pranaData.breathPhase === 'inhale' ? [0.8, 1] : [1, 0.8],
-                              opacity: [0.5, 1, 0.5],
+                              scale: getAnimationScale(),
+                              opacity: 0.4 + (phaseProgress / 100) * 0.6,
                             }
                           : { scale: 0.9, opacity: 0.3 }
                       }
                       transition={{
-                        duration: 2,
-                        repeat: sessionState === 'active' ? Infinity : 0,
-                        ease: 'easeInOut',
+                        duration: 0.1,
+                        ease: 'linear',
                       }}
                     />
 
@@ -350,24 +547,19 @@ export function BreathingModal({ isOpen, pranaData, onClose }: BreathingModalPro
                       style={{
                         width: 200,
                         height: 200,
-                        background: `radial-gradient(circle, ${
-                          pranaData.breathPhase === 'inhale' ? cyanColor : goldColor
-                        }, ${pranaData.breathPhase === 'inhale' ? `${cyanColor}40` : `${goldColor}40`})`,
-                        boxShadow: `0 0 60px ${
-                          pranaData.breathPhase === 'inhale' ? cyanColor : goldColor
-                        }80`,
+                        background: `radial-gradient(circle, ${getPhaseColor()}, ${getPhaseColor()}40)`,
+                        boxShadow: `0 0 60px ${getPhaseColor()}80`,
                       }}
                       animate={
                         sessionState === 'active'
                           ? {
-                              scale: pranaData.breathPhase === 'inhale' ? [0.9, 1.1] : [1.1, 0.9],
+                              scale: getAnimationScale(),
                             }
                           : { scale: 1 }
                       }
                       transition={{
-                        duration: 2,
-                        repeat: sessionState === 'active' ? Infinity : 0,
-                        ease: 'easeInOut',
+                        duration: 0.1,
+                        ease: 'linear',
                       }}
                     >
                       <motion.div
@@ -377,38 +569,68 @@ export function BreathingModal({ isOpen, pranaData, onClose }: BreathingModalPro
                         ॐ
                       </motion.div>
                     </motion.div>
+
+                    {/* Progress indicator ring */}
+                    <svg className="absolute" width="400" height="400" style={{ transform: 'rotate(-90deg)' }}>
+                      <circle
+                        cx="200"
+                        cy="200"
+                        r="195"
+                        fill="none"
+                        stroke={`${getPhaseColor()}40`}
+                        strokeWidth="4"
+                      />
+                      <motion.circle
+                        cx="200"
+                        cy="200"
+                        r="195"
+                        fill="none"
+                        stroke={getPhaseColor()}
+                        strokeWidth="4"
+                        strokeLinecap="round"
+                        strokeDasharray={2 * Math.PI * 195}
+                        animate={{
+                          strokeDashoffset: 2 * Math.PI * 195 * (1 - phaseProgress / 100),
+                        }}
+                        transition={{
+                          duration: 0.1,
+                          ease: 'linear',
+                        }}
+                      />
+                    </svg>
                   </motion.div>
                 </div>
 
                 {/* Breathing Instruction */}
                 <AnimatePresence mode="wait">
                   <motion.div
-                    key={pranaData.breathPhase}
+                    key={currentPhase}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.2 }}
                     className="text-5xl font-bold"
                     style={{
-                      color: pranaData.breathPhase === 'inhale' ? cyanColor : goldColor,
+                      color: getPhaseColor(),
                     }}
                   >
-                    {sessionState === 'paused'
-                      ? 'Paused'
-                      : pranaData.breathPhase === 'inhale'
-                      ? 'Breathe In'
-                      : 'Breathe Out'}
+                    {getPhaseInstruction()}
                   </motion.div>
                 </AnimatePresence>
+
+                {/* Pattern name and timing */}
+                <div className="text-sm" style={{ color: dimGoldColor }}>
+                  {selectedPattern.name} • {breathCount} breaths completed
+                </div>
 
                 {/* Progress Info */}
                 <div className="space-y-4">
                   <div>
                     <div className="text-2xl font-bold mb-2" style={{ color: lightGoldColor }}>
-                      {remainingPranas} pranas remaining
+                      {formatTime(remainingSeconds)} remaining
                     </div>
                     <div className="text-lg" style={{ color: dimGoldColor }}>
-                      {completedPranas} of {sessionTargetPranas} completed
+                      {formatTime(elapsedTime)} of {formatTime(sessionTargetSeconds)} completed
                     </div>
                   </div>
 
@@ -425,7 +647,7 @@ export function BreathingModal({ isOpen, pranaData, onClose }: BreathingModalPro
                       />
                     </div>
                     <div className="text-sm mt-2" style={{ color: dimGoldColor }}>
-                      Elapsed: {formatTime(elapsedTime)}
+                      {Math.round(progress)}% complete
                     </div>
                   </div>
                 </div>
@@ -539,9 +761,15 @@ export function BreathingModal({ isOpen, pranaData, onClose }: BreathingModalPro
                     </span>
                   </div>
                   <div className="flex justify-between text-sm" style={{ color: dimGoldColor }}>
-                    <span>Pranas:</span>
+                    <span>Pattern:</span>
                     <span style={{ color: lightGoldColor }}>
-                      {completedPranas} breaths
+                      {selectedPattern.name}
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-sm" style={{ color: dimGoldColor }}>
+                    <span>Breaths:</span>
+                    <span style={{ color: lightGoldColor }}>
+                      {breathCount} cycles
                     </span>
                   </div>
                   <div className="flex justify-between text-sm" style={{ color: dimGoldColor }}>

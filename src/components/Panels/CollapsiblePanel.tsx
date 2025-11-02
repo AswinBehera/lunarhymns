@@ -42,6 +42,9 @@ interface CollapsiblePanelProps {
 
   /** Force modal mode regardless of screen size */
   forceModal?: boolean;
+
+  /** Accessible label for the panel */
+  ariaLabel?: string;
 }
 
 /**
@@ -57,6 +60,7 @@ export function CollapsiblePanel({
   storageKey,
   zIndex = 30,
   forceModal = false,
+  ariaLabel,
 }: CollapsiblePanelProps) {
   // Detect screen size for responsive behavior
   const screenSize = useScreenSize();
@@ -253,6 +257,8 @@ export function CollapsiblePanel({
 
   // Modal mode rendering for mobile
   if (shouldUseModal) {
+    const defaultLabel = ariaLabel || (position === 'left' ? 'Vedic Time Details' : 'Calendar & Tasks');
+
     return (
       <>
         {/* Floating Tab Button (always visible when closed) */}
@@ -272,6 +278,8 @@ export function CollapsiblePanel({
               backdropFilter: 'blur(10px)',
               border: '1px solid rgba(212, 175, 55, 0.5)',
             }}
+            aria-label={`Open ${defaultLabel}`}
+            aria-expanded={false}
           >
             <div className="text-sm font-medium text-slate-950">
               {handleContent || `Open ${position === 'left' ? 'Details' : 'Calendar'}`}
@@ -291,6 +299,7 @@ export function CollapsiblePanel({
                 onClick={() => setIsOpen(false)}
                 className="fixed inset-0 bg-black/60 backdrop-blur-sm"
                 style={{ zIndex: zIndex - 1 }}
+                aria-hidden="true"
               />
 
               {/* Modal Panel */}
@@ -306,6 +315,9 @@ export function CollapsiblePanel({
                   backdropFilter: 'blur(20px)',
                   border: '1px solid rgba(212, 175, 55, 0.3)',
                 }}
+                role="dialog"
+                aria-modal="true"
+                aria-label={defaultLabel}
               >
                 {/* Modal Header with Close Button */}
                 <div
@@ -322,6 +334,7 @@ export function CollapsiblePanel({
                     onClick={() => setIsOpen(false)}
                     className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors"
                     style={{ color: '#D4AF37' }}
+                    aria-label={`Close ${defaultLabel}`}
                   >
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -342,6 +355,12 @@ export function CollapsiblePanel({
   }
 
   // Standard panel mode for desktop/tablet
+  const defaultLabel = ariaLabel || (
+    position === 'left' ? 'Vedic Time Details' :
+    position === 'right' ? 'Calendar & Tasks' :
+    position === 'bottom' ? 'Daily Hymn' : 'Panel'
+  );
+
   return (
     <motion.div
       style={getPanelStyles()}
@@ -358,6 +377,9 @@ export function CollapsiblePanel({
         duration: 0.3,
         ease: 'easeInOut',
       }}
+      role="region"
+      aria-label={defaultLabel}
+      aria-expanded={isOpen}
     >
       {/* Draggable Handle */}
       <motion.div
@@ -370,6 +392,16 @@ export function CollapsiblePanel({
         onDragEnd={handleDragEnd}
         whileHover={{ backgroundColor: 'rgba(212, 175, 55, 0.15)' }}
         className="select-none"
+        role="button"
+        aria-label={`${isOpen ? 'Collapse' : 'Expand'} ${defaultLabel}`}
+        aria-expanded={isOpen}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setIsOpen(!isOpen);
+          }
+        }}
       >
         {handleContent || (
           <div className="flex items-center gap-2">

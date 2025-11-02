@@ -42,6 +42,8 @@ export function BreathingButton({ prana, onClick }: BreathingButtonProps) {
         boxShadow: `0 0 30px ${currentColor}80, inset 0 0 20px ${currentColor}30`,
         backdropFilter: 'blur(10px)',
       }}
+      aria-label="Open breathing meditation guide"
+      title="Open breathing meditation guide"
       animate={{
         scale: [1, 1.08, 1],
         boxShadow: [
